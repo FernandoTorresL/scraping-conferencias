@@ -39,3 +39,10 @@ jupyter notebook
 * Abre el notebook *scraping-amlo.ipynb*
 
 
+---
+
+## Follow me
+
+### [fertorresmx.dev](https://www.fertorresmx.dev/)
+
+#### :globe_with_meridians: Twitter, Instagram: [@fertorresmx](http://www.twitter/fertorresmx)
