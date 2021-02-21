@@ -25,20 +25,19 @@ class GetTranscriptionsLinksSpider(scrapy.Spider):
         'USER_AGENT': 'FerTorres'
     }
 
-    # Título = //div[contains(@class, "category-boletines")]//h4[@class="entry-title"]/a/text()
-    # link = //div[contains(@class, "category-boletines")]//h4[@class="entry-title"]/a/@href
-    # Image_link = //div[contains(@class, "category-boletines")]//a/img/@src'
+    # Título = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/text()
+    # link = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/@href
 
     def parse(self, response):
-        print('*' * 10)
-        print('\n\n')
 
-        for transcription in response.xpath('//div[contains(@class, "category-boletines")]//h4[@class="entry-title"]'):
-            title = transcription.xpath('a/text()').get()
-            link = transcription.xpath('a/@href').get()
-            print(dict(title=title, link=link))
+        posts = response.xpath('//div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]')
+
+        for post in posts:
+
+            title = post.xpath('a/text()').get()
+            link = post.xpath('a/@href').get()
+
             yield {
                 'title': title,
                 'link': link
             }
-
