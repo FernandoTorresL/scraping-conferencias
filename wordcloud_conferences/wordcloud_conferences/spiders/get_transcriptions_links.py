@@ -38,20 +38,8 @@ class GetTranscriptionsLinksSpider(scrapy.Spider):
         links = response.xpath('//div[contains(@class, "category-boletines")]//h4[@class="entry-title"]/a/@href').getall()
         image_links = response.xpath('//div[contains(@class, "category-boletines")]//a/img/@src').getall()
 
-        print('Títulos: ')
-        for title in titles:
-            print(f'- {title}')
-        print('\n\n')
-
-        print('Links: ')
-        for link in links:
-            print(f'- {link}')
-        print('\n\n')
-
-        print('Images_links: ')
-        for image_link in image_links:
-            print(f'- {image_link}')
-        print('\n\n')
-
-        print('*' * 10)
-        print('\n\n')
+        yield {
+            'titles': titles,
+            'links': links,
+            'image_links': image_links
+        }
