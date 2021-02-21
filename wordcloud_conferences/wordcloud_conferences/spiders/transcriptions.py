@@ -1,7 +1,7 @@
 import scrapy
 
-class GetTranscriptionsLinksSpider(scrapy.Spider):
-    name = 'get_transcriptions_links'
+class GetTranscriptionsSpider(scrapy.Spider):
+    name = 'get_transcriptions'
 
     start_urls = [
         'https://presidente.gob.mx/sala-de-prensa/'
@@ -28,16 +28,25 @@ class GetTranscriptionsLinksSpider(scrapy.Spider):
     # Título = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/text()
     # link = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/@href
 
+    # next page link = //div[@class="pagenavbar"][2]/div/span[@class="page-numbers current"]/following-sibling::*[1]/@href
+
     def parse(self, response):
 
         posts = response.xpath('//div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]')
 
         for post in posts:
 
-            title = post.xpath('a/text()').get()
+            short_title = post.xpath('a/text()').get()
             link = post.xpath('a/@href').get()
 
             yield {
-                'title': title,
+                'short_title': short_title,
                 'link': link
             }
+
+            next_page_button_link = response.xpath('//div[@class="pagenavbar"][last()]/div/span[@class="page-numbers current"]/following-sibling::*[1]/@href').get()
+
+            if next_page_button_link:
+                yield response.follow(next_page_button_link, callback=self.parse)
+
+
