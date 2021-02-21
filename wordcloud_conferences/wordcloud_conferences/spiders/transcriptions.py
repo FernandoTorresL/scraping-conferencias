@@ -31,15 +31,14 @@ class GetTranscriptionsLinksSpider(scrapy.Spider):
 
     def parse(self, response):
         print('*' * 10)
-        print(response.status, response.headers)
         print('\n\n')
 
-        titles = response.xpath('//div[contains(@class, "category-boletines")]//h4[@class="entry-title"]/a/text()').getall()
-        links = response.xpath('//div[contains(@class, "category-boletines")]//h4[@class="entry-title"]/a/@href').getall()
-        image_links = response.xpath('//div[contains(@class, "category-boletines")]//a/img/@src').getall()
+        for transcription in response.xpath('//div[contains(@class, "category-boletines")]//h4[@class="entry-title"]'):
+            title = transcription.xpath('a/text()').get()
+            link = transcription.xpath('a/@href').get()
+            print(dict(title=title, link=link))
+            yield {
+                'title': title,
+                'link': link
+            }
 
-        yield {
-            'titles': titles,
-            'links': links,
-            'image_links': image_links
-        }
