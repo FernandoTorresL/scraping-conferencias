@@ -25,7 +25,6 @@ class GetTranscriptionsSpider(scrapy.Spider):
         'USER_AGENT': 'FerTorres'
     }
 
-
     def parse(self, response):
         # Short title = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/text()
         # url = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/@href
@@ -39,11 +38,9 @@ class GetTranscriptionsSpider(scrapy.Spider):
 
             yield response.follow( url, callback=self.parse_url, cb_kwargs={'short_title': short_title, 'url': url} )
 
-            # next_page_button_link = response.xpath('//div[@class="pagenavbar"][last()]/div/span[@class="page-numbers current"]/following-sibling::*[1]/@href').get()
-            next_page_button_link = False
+            next_page_button_link = response.xpath('//div[@class="pagenavbar"][last()]/div/span[@class="page-numbers current"]/following-sibling::*[1]/@href').get()
             if next_page_button_link:
                 yield response.follow(next_page_button_link, callback=self.parse)
-
 
     def parse_url(self, response, **kwargs):
         # Title: //header[@class="entry-header"]/h2[@class="entry-title"]/text()
