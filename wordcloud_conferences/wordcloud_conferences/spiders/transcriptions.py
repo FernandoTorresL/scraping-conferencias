@@ -9,9 +9,9 @@ class GetTranscriptionsSpider(scrapy.Spider):
 
     custom_settings = {
         'FEEDS': {
-            'transcriptions_links.json': {
+            'transcriptions_links_%(time)s.json': {
                 'format': 'json',
-                'encoding': 'utf8',
+                'encoding': 'utf-8',
                 'stor_empty': False,
                 'fields': None,
                 'ident': 4,
@@ -33,22 +33,26 @@ class GetTranscriptionsSpider(scrapy.Spider):
         posts = response.xpath('//div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]')
 
         for post in posts:
+            # Scrape the short_title and link from first posts(4)
             short_title = post.xpath('a/text()').get()
             url = post.xpath('a/@href').get()
 
-            yield response.follow( url, callback=self.parse_url, cb_kwargs={'short_title': short_title, 'url': url} )
+            # Go to scrape post details
+            yield response.follow( url, callback=self.parse_post_details, cb_kwargs={'short_title': short_title, 'url': url} )
 
+            # Go to next page
             next_page_button_link = response.xpath('//div[@class="pagenavbar"][last()]/div/span[@class="page-numbers current"]/following-sibling::*[1]/@href').get()
             if next_page_button_link:
                 yield response.follow(next_page_button_link, callback=self.parse)
 
-    def parse_url(self, response, **kwargs):
+    def parse_post_details(self, response, **kwargs):
         # Title: //header[@class="entry-header"]/h2[@class="entry-title"]/text()
-        #Body: //div[@class="entry-content"]/p #With tags p and strong for the speakers
-
-        short_title = kwargs['short_title']
+        # Body: //div[@class="entry-content"]/p #With tags p and strong for the speakers
+        short_title = url = None
+        if kwargs:
+            short_title = kwargs['short_title']
+            url = kwargs['url']
         title = response.xpath('//header[@class="entry-header"]/h2[@class="entry-title"]/text()').get()
-        url = kwargs['url']
         body = response.xpath('//div[@class="entry-content"]/p').getall()
 
         yield {
