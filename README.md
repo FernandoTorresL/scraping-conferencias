@@ -5,12 +5,17 @@ Con tantas conferencias presidenciales en México desde hace dos años, ¿te has
 Éste proyecto está inspirado por el [ejercicio del Prof. Jorge Luis Novelo](https://github.com/PhinanceScientist) y su post en [LinkeId](https://www.linkedin.com/pulse/qu%C3%A9-es-lo-que-dice-el-discurso-presidencial-an%C3%A1lisis-de-luis-jorge/)
 
 ---
-![Screenshot](https://s3-us-west-2.amazonaws.com/torresmxbucket/2021/02/Screen-Shot-2021-02-20-at-1.42.44.png)  
+![Screenshot](https://s3-us-west-2.amazonaws.com/torresmxbucket/2021/02/Screen-Shot-2021-02-20-at-1.42.44.png)
 
 ---
 ## Setup
 
 * Clonar el repositorio
+
+```bash
+git@github.com:FernandoTorresL/scraping-conferencias.git
+```
+
 * Preparar el ambiente
 
 ```bash
@@ -27,7 +32,7 @@ pip3 install pandas
 pip3 install nltk wordcloud stop-words
 ```
 
-o utilicemos el archivo requeriments.txt:
+o utilicemos el archivo requirements.txt:
 
 ```bash
 # Crear y activar el ambiente
@@ -36,8 +41,11 @@ source venv/bin/activate
 
 python3 -m pip install --upgrade pip
 
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
+
+---
+## Utilizar archivo Jupyter Notebook
 
 * Cambia al directorio notebook
 
@@ -45,15 +53,26 @@ pip install -r requeriments.txt
 cd notebook
 ```
 
-* Ejecuta Jupyter Notebook
+* Ejecuta Jupyter Notebook (dentro del ambiente)
 
 ```bash
-jupyter notebook
+./venv/bin/jupyter notebook
 ```
 
 * Abre el notebook *scraping-conferencias.ipynb*
 
 ---
+
+## Utilizar spider de Scrapy
+```bash
+cd wordcloud_conferences
+scrapy crawl get_transcriptions
+```
+* Se generará el archivo transcriptions_links_.json
+
+
+---
+
 
 ## WIP (Work in Progress)
 

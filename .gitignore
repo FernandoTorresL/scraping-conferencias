@@ -249,3 +249,4 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,jupyternotebooks,virtualenv,windows,linux,macos
 
 images/saved_images/
+transcriptions_links_*.json
