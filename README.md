@@ -4,11 +4,15 @@ Con tantas conferencias presidenciales en México desde hace dos años, ¿te has
 
 Éste proyecto está inspirado por el [ejercicio del Prof. Jorge Luis Novelo](https://github.com/PhinanceScientist) y su post en [LinkeId](https://www.linkedin.com/pulse/qu%C3%A9-es-lo-que-dice-el-discurso-presidencial-an%C3%A1lisis-de-luis-jorge/)
 
----
+## Etapas del proyecto:
+- [x] Extract (Extracción): Finalizada, main branch
+- [ ] Transform (Transformación): WIP, develop and feature_* branch
+- [ ] Load (Carga): Pendiente
+
 ![Screenshot](https://s3-us-west-2.amazonaws.com/torresmxbucket/2021/02/Screen-Shot-2021-02-20-at-1.42.44.png)
 
 ---
-## Setup
+### Setup
 
 * Clonar el repositorio
 
@@ -44,8 +48,7 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
----
-## Utilizar archivo Jupyter Notebook
+### Utilizar archivo Jupyter Notebook
 
 * Cambia al directorio notebook
 
@@ -61,9 +64,9 @@ cd notebook
 
 * Abre el notebook *scraping-conferencias.ipynb*
 
----
 
-## Utilizar spider de Scrapy
+
+### Utilizar spider de Scrapy
 ```bash
 cd wordcloud_conferences
 scrapy crawl get_transcriptions
@@ -71,16 +74,14 @@ scrapy crawl get_transcriptions
 * Se generará el archivo transcriptions_links_.json
 
 
----
+## Etapa de Transformación de datos: 
+### WIP (Work in Progress)
 
-
-## WIP (Work in Progress)
-
-Actualizaciones futuras y automatización en progreso (20-Feb-2021)
+Actualizaciones futuras y automatización en progreso (15-Marzo-2021)
 
 ---
 
-## Follow me
+### Follow me
 
 ### [fertorresmx.dev](https://www.fertorresmx.dev/)
 
