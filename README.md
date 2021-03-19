@@ -68,13 +68,13 @@ cd notebook
 
 ### Utilizar spider de Scrapy
 ```bash
-cd wordcloud_conferences
+cd project_live/extract/wordcloud_conferences
 scrapy crawl get_transcriptions
 ```
-* Se generará el archivo transcriptions_links_.json
+* Se generará el archivo transcriptions_links_.json en la carpeta project_live/extract/data_extracted/
 
 
-## Etapa de Transformación de datos: 
+## Etapa de Transformación de datos:
 ### WIP (Work in Progress)
 
 Actualizaciones futuras y automatización en progreso (15-Marzo-2021)
