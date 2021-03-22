@@ -6,7 +6,7 @@ Con tantas conferencias presidenciales en México desde hace dos años, ¿te has
 
 ## Etapas del proyecto:
 - [x] Extract (Extracción): Finalizada, main branch
-- [ ] Transform (Transformación): WIP, develop and feature_* branch
+- [ ] Transform (Transformación): WIP, develop and feature_transform branch
 - [ ] Load (Carga): Pendiente
 
 ![Screenshot](https://s3-us-west-2.amazonaws.com/torresmxbucket/2021/02/Screen-Shot-2021-02-20-at-1.42.44.png)
@@ -34,6 +34,7 @@ pip3 install jupyter
 pip3 install bs4 requests numpy
 pip3 install pandas
 pip3 install nltk wordcloud stop-words
+pip3 install wheel scrapy autopep8
 ```
 
 o utilicemos el archivo requirements.txt:
@@ -71,13 +72,13 @@ cd notebook
 cd wordcloud_conferences
 scrapy crawl get_transcriptions
 ```
-* Se generará el archivo transcriptions_links_.json
+* Se generará el archivo transcriptions_links_(timestamp).json
 
 
 ## Etapa de Transformación de datos: 
 ### WIP (Work in Progress)
 
-Actualizaciones futuras y automatización en progreso (15-Marzo-2021)
+Actualizaciones futuras y automatización en progreso (21-Marzo-2021)
 
 ---
 
