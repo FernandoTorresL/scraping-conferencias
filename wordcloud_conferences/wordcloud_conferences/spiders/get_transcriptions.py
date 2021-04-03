@@ -10,8 +10,16 @@ class GetTranscriptionsSpider(scrapy.Spider):
 
     custom_settings = {
         'FEEDS': {
-            'transcriptions_links_%(time)s.json': {
+            '../data_extracted/transcriptions_links_%(time)s.json': {
                 'format': 'json',
+                'encoding': 'utf-8',
+                'stor_empty': False,
+                'fields': None,
+                'ident': 4,
+                'overwrite': True,
+            },
+            '../data_extracted/transcriptions_links_%(time)s.csv': {
+                'format': 'csv',
                 'encoding': 'utf-8',
                 'stor_empty': False,
                 'fields': None,

@@ -72,7 +72,7 @@ cd notebook
 cd wordcloud_conferences
 scrapy crawl get_transcriptions
 ```
-* Se generará el archivo transcriptions_links_(timestamp).json
+* Se generará el archivo transcriptions_links_(timestamp).json en la carpeta data_extracted
 
 
 ## Etapa de Transformación de datos: 
