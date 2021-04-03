@@ -1,5 +1,6 @@
 import scrapy
 
+
 class GetTranscriptionsSpider(scrapy.Spider):
     name = 'get_transcriptions'
 
@@ -9,8 +10,16 @@ class GetTranscriptionsSpider(scrapy.Spider):
 
     custom_settings = {
         'FEEDS': {
-            'transcriptions_links_%(time)s.json': {
+            '../data_extracted/transcriptions_links_%(time)s.json': {
                 'format': 'json',
+                'encoding': 'utf-8',
+                'stor_empty': False,
+                'fields': None,
+                'ident': 4,
+                'overwrite': True,
+            },
+            '../data_extracted/transcriptions_links_%(time)s.csv': {
+                'format': 'csv',
                 'encoding': 'utf-8',
                 'stor_empty': False,
                 'fields': None,
@@ -25,12 +34,22 @@ class GetTranscriptionsSpider(scrapy.Spider):
         'USER_AGENT': 'FerTorres'
     }
 
-    def parse(self, response):
-        # Short title = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/text()
-        # url = //div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]/a/@href
-        # Next page link = //div[@class="pagenavbar"][2]/div/span[@class="page-numbers current"]/following-sibling::*[1]/@href
+    """ Short title =
+            //div[contains(@class, "category-version-estenografica")]
+            //h3[@class="entry-title"]/a/text()
+        url =
+            //div[contains(@class, "category-version-estenografica")]
+            //h3[@class="entry-title"]/a/@href
+        Next page link =
+            //div[@class="pagenavbar"][2]/div
+            /span[@class="page-numbers current"]
+            /following-sibling::*[1]/@href """
 
-        posts = response.xpath('//div[contains(@class, "category-version-estenografica")]//h3[@class="entry-title"]')
+    def parse(self, response):
+
+        posts = response.xpath('//div[contains\
+            (@class, "category-version-estenografica")]\
+            //h3[@class="entry-title"]')
 
         for post in posts:
             # Scrape the short_title and link from first posts(4)
@@ -38,21 +57,36 @@ class GetTranscriptionsSpider(scrapy.Spider):
             url = post.xpath('a/@href').get()
 
             # Go to scrape post details
-            yield response.follow( url, callback=self.parse_post_details, cb_kwargs={'short_title': short_title, 'url': url} )
+            yield response.follow(url,
+                                  callback=self.parse_post_details,
+                                  cb_kwargs={
+                                    'short_title': short_title,
+                                    'url': url
+                                  })
 
             # Go to next page
-            next_page_button_link = response.xpath('//div[@class="pagenavbar"][last()]/div/span[@class="page-numbers current"]/following-sibling::*[1]/@href').get()
+            next_page_button_link = response.xpath(
+                    '//div[@class="pagenavbar"]\
+                    [last()]/div/span[@class="page-numbers current"]\
+                    /following-sibling::*[1]/@href').get()
             if next_page_button_link:
-                yield response.follow(next_page_button_link, callback=self.parse)
+                yield response.follow(
+                    next_page_button_link,
+                    callback=self.parse)
+
+    """ Title: //header[@class="entry-header"]
+           /h2[@class="entry-title"]/text()
+        Body: //div[@class="entry-content"]/p
+              With tags p and strong for the speakers """
 
     def parse_post_details(self, response, **kwargs):
-        # Title: //header[@class="entry-header"]/h2[@class="entry-title"]/text()
-        # Body: //div[@class="entry-content"]/p #With tags p and strong for the speakers
         short_title = url = None
         if kwargs:
             short_title = kwargs['short_title']
             url = kwargs['url']
-        title = response.xpath('//header[@class="entry-header"]/h2[@class="entry-title"]/text()').get()
+        title = response.xpath('//header\
+            [@class="entry-header"]\
+            /h2[@class="entry-title"]/text()').get()
         body = response.xpath('//div[@class="entry-content"]/p').getall()
 
         yield {
