@@ -80,10 +80,11 @@ scrapy crawl get_transcriptions
 
 Actualizaciones futuras y automatización en progreso (21-Marzo-2021)
 
----
+------
 
-### Follow me
+#### Follow me 
+[fertorresmx.dev](https://fertorresmx.dev/)
 
-### [fertorresmx.dev](https://www.fertorresmx.dev/)
+#### :globe_with_meridians: [Twitter](https://twitter.com/FerTorresMx), [Instagram](https://www.instagram.com/fertorresmx/): @fertorresmx
 
 #### :globe_with_meridians: Twitter, Instagram: [@fertorresmx](https://www.twitter/fertorresmx)
