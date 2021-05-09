@@ -10,7 +10,7 @@ class GetTranscriptionsSpider(scrapy.Spider):
     custom_settings = {
         'FEEDS':
         {
-            '../data_extracted/transcriptions_links_%(time)s.json': {
+            '../data_extracted/data_%(time)s.json': {
                 'format': 'json',
                 'encoding': 'utf-8',
                 'stor_empty': False,
@@ -18,7 +18,7 @@ class GetTranscriptionsSpider(scrapy.Spider):
                 'ident': 4,
                 'overwrite': True,
             },
-            '../data_extracted/transcriptions_links_%(time)s.csv': {
+            '../data_extracted/data_%(time)s.csv': {
                 'format': 'csv',
                 'encoding': 'utf-8',
                 'stor_empty': False,
@@ -62,7 +62,7 @@ class GetTranscriptionsSpider(scrapy.Spider):
             short_title = kwargs['short_title']
             url = kwargs['url']
         title = response.xpath('//header[@class="entry-header"]/h2[@class="entry-title"]/text()').get()
-        body = response.xpath('//div[@class="entry-content"]/p').getall()
+        body = response.xpath('//div[@class="entry-content"]/p[text()]').getall()
 
         yield {
             'short_title': short_title,
